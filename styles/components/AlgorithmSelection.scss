@@ -1,0 +1,114 @@
+.algorithm-selection {
+  &__header {
+    @apply text-2xl font-bold text-gray-800 flex items-center mb-6;
+    
+    &-icon {
+      @apply text-2xl mr-2;
+      animation: bounce 1s infinite;
+    }
+  }
+
+  &__grid {
+    @apply grid grid-cols-1 gap-4;
+  }
+
+  &__button {
+    @apply group flex items-center p-4 rounded-xl transition-all duration-300;
+    
+    &--selected {
+      @apply bg-blue-50 border-2 border-blue-500 shadow-lg transform scale-[1.02];
+    }
+
+    &:not(&--selected) {
+      @apply border border-gray-200 hover:border-blue-300 hover:bg-gray-50;
+    }
+
+    &-icon {
+      @apply flex-shrink-0 w-12 h-12 flex items-center justify-center 
+             rounded-lg text-white text-2xl transition-all duration-300;
+      
+      &--selected {
+        background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+      }
+      
+      &:not(&--selected) {
+        background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+        
+        .group:hover & {
+          background: linear-gradient(135deg, #60a5fa 0%, #6366f1 100%);
+        }
+      }
+    }
+
+    &-content {
+      @apply ml-4 text-left flex-grow;
+      
+      &-title {
+        @apply font-semibold text-gray-800;
+      }
+      
+      &-description {
+        @apply text-sm text-gray-600;
+      }
+      
+      &-complexity {
+        @apply text-xs text-blue-600 mt-1 font-mono;
+        opacity: 0;
+        transform: translateY(5px);
+        transition: all 0.3s ease;
+        
+        .group:hover & {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    &-check {
+      @apply text-blue-500 ml-2;
+      animation: scaleIn 0.2s ease-out;
+    }
+  }
+
+  &__calculate {
+    @apply w-full p-4 bg-gradient-to-r from-blue-600 to-indigo-600 
+           text-white rounded-xl transition duration-300 flex items-center 
+           justify-center gap-2 font-semibold shadow-lg mt-6;
+    
+    &:hover {
+      @apply from-blue-700 to-indigo-700 shadow-xl;
+      transform: translateY(-2px);
+    }
+    
+    &-icon {
+      animation: hover 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes hover {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+} 

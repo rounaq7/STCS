@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Custom variables
+$primary-gradient: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+$secondary-gradient: linear-gradient(135deg, #64748b 0%, #475569 100%);
+$card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$transition-base: all 0.3s ease;
+
+// Base styles
+body {
+  @apply bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+// Navigation
+.nav-container {
+  @apply bg-white shadow-lg backdrop-blur-lg backdrop-filter;
+  background: rgba(255, 255, 255, 0.95);
+
+  .nav-logo {
+    @apply w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg;
+    animation: pulse 2s infinite;
+  }
+}
+
+// Card styles
+.card {
+  @apply bg-white rounded-2xl shadow-xl p-6;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: $transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+// Form elements
+.select-input {
+  @apply w-full p-3 pl-10 border border-gray-300 rounded-xl;
+  background-image: url("data:image/svg+xml,..."); // Add custom dropdown arrow
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1em;
+
+  &:focus {
+    @apply ring-2 ring-blue-500 border-blue-500;
+    outline: none;
+  }
+}
+
+// Algorithm selection styles
+.algorithm-card {
+  @apply flex items-center p-4 rounded-xl transition-all duration-300;
+  
+  &.selected {
+    @apply bg-blue-50 border-2 border-blue-500 shadow-lg;
+    transform: scale(1.02);
+  }
+
+  .algorithm-icon {
+    @apply flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg text-white text-2xl;
+    transition: $transition-base;
+    
+    &.selected {
+      background: $primary-gradient;
+    }
+    
+    &:not(.selected) {
+      background: $secondary-gradient;
+    }
+  }
+
+  &:hover:not(.selected) {
+    .algorithm-icon {
+      background: linear-gradient(135deg, #60a5fa 0%, #6366f1 100%);
+    }
+  }
+}
+
+// Map container styles
+.map-container {
+  @apply h-[600px] rounded-2xl overflow-hidden;
+  box-shadow: $card-shadow;
+
+  .leaflet-container {
+    @apply h-full w-full;
+    z-index: 1;
+  }
+
+  .leaflet-popup-content-wrapper {
+    @apply rounded-xl shadow-lg;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+}
+
+// Loading overlay
+.loading-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50;
+
+  .loading-card {
+    @apply bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .spinner {
+    @apply animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent;
+  }
+}
+
+// Route summary
+.route-summary {
+  @apply mt-8 bg-white rounded-2xl shadow-xl p-6;
+  animation: slideUp 0.5s ease-out;
+
+  .metric {
+    @apply text-3xl font-bold;
+    
+    &.distance {
+      @apply text-blue-600;
+    }
+    
+    &.time {
+      @apply text-green-600;
+    }
+  }
+}
+
+// Animations
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .card {
+    padding: 1rem;
+  }
+
+  .algorithm-card {
+    .algorithm-icon {
+      @apply w-10 h-10;
+    }
+  }
+
+  .map-container {
+    height: 400px;
+  }
+}
+
+// Your other global styles here 
+
+.validation-message {
+  color: #e53e3e;
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+// Results container
+.results-container {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #f0f4f8;
+  border-radius: 8px;
+  
+  h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #2d3748;
+  }
+  
+  .best-algorithm {
+    margin-bottom: 12px;
+    font-weight: 500;
+    
+    strong {
+      color: #3182ce;
+    }
+  }
+}
+
+.algorithm-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.result-card {
+  padding: 12px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  
+  h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  
+  p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  
+  &.best {
+    border-left: 3px solid #3182ce;
+    background-color: #ebf8ff;
+  }
+}
+
+.error-message {
+  color: #e53e3e;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.calculate-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 16px;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  
+  &:hover {
+    background-color: #3182ce;
+  }
+  
+  &:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+  }
+} 
